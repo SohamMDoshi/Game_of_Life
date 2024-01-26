@@ -13,7 +13,7 @@ public class Cell {
 
     public void evolve(int liveNeighbors) {
         if(status == CellStatus.ALIVE) {
-            status = (liveNeighbors < 2 || liveNeighbors >) ? CellStatus.DEAD : CellStatus.ALIVE;
+            status = (liveNeighbors < 2 || liveNeighbors > 3) ? CellStatus.DEAD : CellStatus.ALIVE;
         }
         else status = (liveNeighbors == 3) ? CellStatus.ALIVE : CellStatus.DEAD;
     }

@@ -1,51 +1,42 @@
 package com.swiggy.board;
-
 public class Board {
-    private static final int ROWS = 20;
-    private static final int COLS = 80;
+    private Cell[][] cells;
+    private double targetPercentOfLife;
 
-    private static final double probabilityOfLife = 0.2;
-
-    int[][] board;
-
-    public Board(int rows, int cols) {
-        board = new int[rows][cols];
+    public Board(int rows, int cols, double targetPercentOfLife) {
+        this.targetPercentOfLife = targetPercentOfLife;
+        this.cells = new Cell[rows][cols];
     }
 
-    public int getValue(int row, int col) {
-        return board[row][col];
+    public Board(Cell[][] cells) {
+        this.cells = cells;
     }
 
-    public void setValue(int row, int col, int value) {
-        this.board[row][col] = value;
-    }
-
-
-    public static int countNeighbor (int row, int col, Board board) {
+    public int countLiveNeighbor (int row, int col) {
         int count =0;
         for(int r = row -1; r <= row +1; r++) {
             for(int c = col-1; c <= col +1; c++) {
-                if(r >= 0 && r < ROWS && c >= 0 && c < COLS && !(r == row && c == col) && board.getValue(r, c) == 1) {
+                if(r >= 0 && r < this.cells.length && c >= 0 && c < this.cells[0].length && !(r == row && c == col) && cells[r][c].getStatus() == CellStatus.ALIVE) {
                     count++;
                 }
             }
         }
         return count;
     }
-
-    public void initializeBoard() {
-        for(int r = 0; r < ROWS; r++) {
-            for(int c = 0; c < COLS; c++) {
-                double chance = Math.random();
-                if(chance < probabilityOfLife) setValue(r,c,1);
-            }
-        }
-    }
+//
+//    public void initializeBoard(int rows, int cols) {
+//        for(int r = 0; r < rows; r++) {
+//            for(int c = 0; c < cols; c++) {
+//                double chance = Math.random();
+//                if(chance < probabilityOfLife) setValue(r,c,1);
+//            }
+//        }
+//    }
     public void DisplayBoard() {
-        for (int i=0;i<board.length;i++) {
-            for(int j=0;j<board[0].length;j++) {
-                if(board[i][j] == 0) System.out.print(".");
-                else if(board[i][j] == 1) System.out.print("0");
+        for (Cell[] cell : cells) {
+            for (int j = 0; j < cells[0].length; j++) {
+                if (cell[j].getStatus() == CellStatus.DEAD) System.out.print(".");
+                else if (cell[j].getStatus() == CellStatus.ALIVE) System.out.print("0");
             }
             System.out.println();
         }
