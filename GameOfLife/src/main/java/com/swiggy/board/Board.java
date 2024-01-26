@@ -15,6 +15,8 @@ public class Board {
         this.cells = cells;
     }
 
+    public Board() {}
+
     public void initializeBoard(int rows, int columns) {
         cells = new Cell[rows][columns];
         Random random = new Random();
