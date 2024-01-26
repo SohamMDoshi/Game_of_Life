@@ -20,6 +20,19 @@ public class Board {
         this.board[row][col] = value;
     }
 
+
+    public static int countNeighbor (int row, int col, Board board) {
+        int count =0;
+        for(int r = row -1; r <= row +1; r++) {
+            for(int c = col-1; c <= col +1; c++) {
+                if(r >= 0 && r < ROWS && c >= 0 && c < COLS && !(r == row && c == col) && board.getValue(r, c) == 1) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public void initializeBoard() {
         for(int r = 0; r < ROWS; r++) {
             for(int c = 0; c < COLS; c++) {
