@@ -1,4 +1,3 @@
-import com.swiggy.board.Board;
 import com.swiggy.board.Cell;
 import com.swiggy.board.CellStatus;
 import org.junit.jupiter.api.Test;

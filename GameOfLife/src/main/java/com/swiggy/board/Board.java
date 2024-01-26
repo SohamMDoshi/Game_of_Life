@@ -17,10 +17,6 @@ public class Board {
 
     public Board() {}
 
-    public Cell[][] getCells () {
-        return this.cells;
-    }
-
     public void initializeBoard(int rows, int columns) {
         cells = new Cell[rows][columns];
         Random random = new Random();
@@ -80,8 +76,8 @@ public class Board {
     }
 
     public void DisplayBoard() {
-        for (Cell[] cell : cells) {
-            for (int j = 0; j < cells[0].length; j++) {
+        for (Cell[] cell : this.cells) {
+            for (int j = 0; j < this.cells[0].length; j++) {
                 if (cell[j].getStatus() == CellStatus.DEAD) System.out.print(".");
                 else if (cell[j].getStatus() == CellStatus.ALIVE) System.out.print("0");
             }
