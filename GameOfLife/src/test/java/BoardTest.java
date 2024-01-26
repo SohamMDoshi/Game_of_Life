@@ -7,7 +7,7 @@ public class BoardTest {
     @Test
     public void setValueInBorad() {
         Board board = new Board(10,15);
-        board.set(3,6,7);
-        assertEquals(7,board.get(3,6));
+        board.setValue(3,6,7);
+        assertEquals(7,board.getValue(3,6));
     }
 }
