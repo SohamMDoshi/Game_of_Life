@@ -1,5 +1,5 @@
 import com.swiggy.board.Board;
-import com.swiggy.board.Life;
+import com.swiggy.board.Cell;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +32,7 @@ public class LifeTest {
         board.setValue(1,2,1);
         board.setValue(8,7,1);
         board.setValue(8,6,1);
-        int neighborCount = Life.countNeighbors(3,2,board);
+        int neighborCount = Cell.countNeighbors(3,2,board);
         assertEquals(3, neighborCount);
     }
 

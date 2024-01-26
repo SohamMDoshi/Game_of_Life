@@ -3,7 +3,7 @@ package com.swiggy.board;
 import static com.swiggy.board.Board.COLS;
 import static com.swiggy.board.Board.ROWS;
 
-public class Life {
+public class Cell {
 
     public static int countNeighbors (int row, int col, Board board) {
         int count =0;
