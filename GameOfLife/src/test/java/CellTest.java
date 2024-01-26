@@ -1,26 +1,35 @@
 import com.swiggy.board.Board;
 import com.swiggy.board.Cell;
+import com.swiggy.board.CellStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CellTest {
 
-//    @Test
-//    public void testIfLifeProbabilityIs20Percent() {
-//        int lifeCount = 0;
-//        int rows = 20;
-//        int cols = 80;
-//        int expectedCount = (int) ((rows * cols) * 0.2);
-//        Board board = new Board(rows, cols);
-//        board.initializeBoard();
-//        for (int i = 0; i < rows; i++) {
-//            for (int j = 0; j < cols; j++) {
-//                if (board.getValue(i, j) == 1) lifeCount++;
-//            }
-//        }
-//        assertEquals(expectedCount, lifeCount);
-//    }
+    @Test
+    public void TestDeadCellWith3AliveNeighbors_ExpectCellStatusBecomeAlive () {
+        Cell cell = new Cell(CellStatus.DEAD);
+        cell.evolve(3);
+        assertEquals(CellStatus.ALIVE, cell.getStatus());
+    }
+    @Test
+    public void TestAliveCellWith3AliveNeighbors_ExpectCellStatusRemainAlive () {
+        Cell cell = new Cell(CellStatus.ALIVE);
+        cell.evolve(3);
+        assertEquals(CellStatus.ALIVE, cell.getStatus());
+    }
+    @Test
+    public void TestAliveCellWith4AliveNeighbors_ExpectCellStatusBecomeDead () {
+        Cell cell = new Cell(CellStatus.ALIVE);
+        cell.evolve(4);
+        assertEquals(CellStatus.DEAD, cell.getStatus());
+    }
 
-
+    @Test
+    public void TestAliveCellWith1AliveNeighbors_ExpectCellStatusBecomeDead () {
+        Cell cell = new Cell(CellStatus.ALIVE);
+        cell.evolve(1);
+        assertEquals(CellStatus.DEAD, cell.getStatus());
+    }
 }
