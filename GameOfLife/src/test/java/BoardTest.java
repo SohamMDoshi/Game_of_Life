@@ -3,12 +3,12 @@ import com.swiggy.board.Cell;
 import com.swiggy.board.CellStatus;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardTest {
 
@@ -88,6 +88,32 @@ public class BoardTest {
         countLiveNeighbor.setAccessible(true);
         int neighborCount2 = (int) countLiveNeighbor.invoke(board,-1,8);
         assertEquals(0,neighborCount2);
+    }
+
+    @Test
+    public void testNextTwoGenerationsOfEvolution () throws NoSuchFieldException, IllegalAccessException{
+        Cell[][] actualResult = getCells();
+        Cell[][] expectedResult = {
+                {new Cell(CellStatus.DEAD),new Cell(CellStatus.DEAD),new Cell(CellStatus.DEAD)},
+                {new Cell(CellStatus.ALIVE),new Cell(CellStatus.DEAD),new Cell(CellStatus.ALIVE)},
+                {new Cell(CellStatus.DEAD),new Cell(CellStatus.ALIVE),new Cell(CellStatus.DEAD)}
+        };
+        assertArrayEquals(expectedResult,actualResult);
+    }
+
+    private static Cell[][] getCells() throws NoSuchFieldException, IllegalAccessException {
+        Cell[][] testCases = {
+                {new Cell(CellStatus.ALIVE),new Cell(CellStatus.DEAD),new Cell(CellStatus.ALIVE)},
+                {new Cell(CellStatus.DEAD),new Cell(CellStatus.ALIVE),new Cell(CellStatus.DEAD)},
+                {new Cell(CellStatus.ALIVE),new Cell(CellStatus.ALIVE),new Cell(CellStatus.ALIVE)}
+        };
+        Board board = new Board(testCases);
+        for (int i = 0; i <2; i++) {
+            board.nextGeneration();
+        }
+        Field cells = Board.class.getDeclaredField("cells");
+        cells.setAccessible(true);
+        return (Cell[][]) cells.get(board);
     }
 
     @Test

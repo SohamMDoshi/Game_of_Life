@@ -18,7 +18,7 @@ public class Game {
         try{
             Thread.sleep(200);
         }catch (InterruptedException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -27,7 +27,7 @@ public class Game {
         board.initializeBoard();
 
         for (int i = 0; i < 150; i++) {
-            //clearConsole();
+            clearConsole();
             board.DisplayBoard();
             slow();
             System.out.println("Generation " + (i+1));
