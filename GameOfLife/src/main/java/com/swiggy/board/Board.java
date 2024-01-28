@@ -8,7 +8,7 @@ public class Board {
 
     public Board(int rows, int cols, double targetPercentOfLife) {
         this.targetPercentOfLife = targetPercentOfLife;
-        initializeBoard(rows,cols);
+        this.cells = new Cell[rows][cols];
     }
 
     public Board(Cell[][] cells) {
@@ -17,8 +17,9 @@ public class Board {
 
     public Board() {}
 
-    public void initializeBoard(int rows, int columns) {
-        cells = new Cell[rows][columns];
+    public void initializeBoard() {
+        int rows = cells.length;
+        int columns = cells[0].length;
         Random random = new Random();
 
         int totalCells = rows * columns;
@@ -28,7 +29,7 @@ public class Board {
         setAliveCells(numbersAliveCells,allPosition,rows,columns);
     }
 
-    public int[] generateAllPositions(int totalCells) {
+    private int[] generateAllPositions(int totalCells) {
         int[] allPositions = new int[totalCells];
         for (int i = 0; i < totalCells; i++) {
             allPositions[i] = i;
@@ -36,7 +37,7 @@ public class Board {
         return allPositions;
     }
 
-    public void shuffle(Random random, int[] positions) {
+    private void shuffle(Random random, int[] positions) {
         for (int i = 0; i < positions.length; i++) {
             int j = random.nextInt(i+1);
             int temp = positions[i];
@@ -45,7 +46,7 @@ public class Board {
         }
     }
 
-    public void setAliveCells(int numberOfAliveCells, int[] positions, int rows, int columns) {
+    private void setAliveCells(int numberOfAliveCells, int[] positions, int rows, int columns) {
         for (int i = 0; i < numberOfAliveCells; i++) {
             int position = positions[i];
             int row = position / columns;
@@ -63,7 +64,7 @@ public class Board {
         }
     }
 
-    public int countLiveNeighbor (int row, int col) {
+    private int countLiveNeighbor (int row, int col) {
         int count =0;
         for(int r = row -1; r <= row +1; r++) {
             for(int c = col-1; c <= col +1; c++) {
@@ -75,6 +76,18 @@ public class Board {
         return count;
     }
 
+    public void nextGeneration () {
+        Cell[][] newGeneration = new Cell[cells.length][cells[0].length];
+        for (int i = 0; i < cells.length; i++) {
+            for (int j = 0; j < cells[0].length; j++) {
+                int alvieNeighbors = countLiveNeighbor(i,j);
+                newGeneration[i][j] = new Cell(cells[i][j].getStatus());
+                newGeneration[i][j].evolve(alvieNeighbors);
+            }
+        }
+        cells = newGeneration;
+    }
+
     public void DisplayBoard() {
         for (Cell[] cell : this.cells) {
             for (int j = 0; j < this.cells[0].length; j++) {
@@ -83,5 +96,6 @@ public class Board {
             }
             System.out.println();
         }
+        System.out.print("\r");
     }
 }
