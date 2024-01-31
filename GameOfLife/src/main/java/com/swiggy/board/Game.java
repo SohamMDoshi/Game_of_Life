@@ -23,14 +23,14 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        Board board = new Board(20,80,0.50);
+        Board board = new Board(3,5,0.50);
         board.initializeBoard();
-
-        for (int i = 0; i < 150; i++) {
+        int generation = 0;
+        while (board.getCountOfAliveCells() > 0) {
             clearConsole();
             board.DisplayBoard();
             slow();
-            System.out.println("Generation " + (i+1));
+            System.out.println("Generation : " + ++generation);
             board.nextGeneration();
         }
     }

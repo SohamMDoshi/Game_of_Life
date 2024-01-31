@@ -6,6 +6,8 @@ public class Board {
     private Cell[][] cells;
     private double targetPercentOfLife;
 
+    private int countOfAliveCells;
+
     public Board(int rows, int cols, double targetPercentOfLife) {
         this.targetPercentOfLife = targetPercentOfLife;
         this.cells = new Cell[rows][cols];
@@ -16,6 +18,7 @@ public class Board {
     }
 
     public Board() {}
+    public int getCountOfAliveCells() {return this.countOfAliveCells;}
 
     public void initializeBoard() {
         int rows = cells.length;
@@ -23,10 +26,10 @@ public class Board {
         Random random = new Random();
 
         int totalCells = rows * columns;
-        int numbersAliveCells = (int) (totalCells * targetPercentOfLife);
+        this.countOfAliveCells = (int) (totalCells * targetPercentOfLife);
         int[] allPosition = generateAllPositions(totalCells);
         shuffle(random,allPosition);
-        setAliveCells(numbersAliveCells,allPosition,rows,columns);
+        setAliveCells(countOfAliveCells,allPosition,rows,columns);
     }
 
     private int[] generateAllPositions(int totalCells) {
@@ -64,23 +67,12 @@ public class Board {
         }
     }
 
-    private int countLiveNeighbor (int row, int col) {
-        int count =0;
-        for(int r = row -1; r <= row +1; r++) {
-            for(int c = col-1; c <= col +1; c++) {
-                if(r >= 0 && r < this.cells.length && c >= 0 && c < this.cells[0].length && !(r == row && c == col) && cells[r][c].getStatus() == CellStatus.ALIVE) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
 
     public void nextGeneration () {
         Cell[][] newGeneration = new Cell[cells.length][cells[0].length];
         for (int i = 0; i < cells.length; i++) {
             for (int j = 0; j < cells[0].length; j++) {
-                int alvieNeighbors = countLiveNeighbor(i,j);
+                int alvieNeighbors = cells[i][j].countLiveNeighbor(i,j,cells);
                 newGeneration[i][j] = new Cell(cells[i][j].getStatus());
                 newGeneration[i][j].evolve(alvieNeighbors);
             }
@@ -89,13 +81,18 @@ public class Board {
     }
 
     public void DisplayBoard() {
+        int count =0;
         for (Cell[] cell : this.cells) {
             for (int j = 0; j < this.cells[0].length; j++) {
-                if (cell[j].getStatus() == CellStatus.DEAD) System.out.print(".");
-                else if (cell[j].getStatus() == CellStatus.ALIVE) System.out.print("0");
+                if (cell[j].getStatus() == CellStatus.DEAD) System.out.print("-");
+                else if (cell[j].getStatus() == CellStatus.ALIVE) {
+                    System.out.print("*");
+                    count++;
+                }
             }
             System.out.println();
         }
+        this.countOfAliveCells = count;
         System.out.print("\r");
     }
 }
