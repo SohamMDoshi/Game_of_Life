@@ -13,17 +13,7 @@ public class Cell {
         return this.status;
     }
 
-    public int countLiveNeighbor (int row, int col, Cell[][] cells) {
-        int count =0;
-        for(int r = row -1; r <= row +1; r++) {
-            for(int c = col-1; c <= col +1; c++) {
-                if(r >= 0 && r < cells.length && c >= 0 && c < cells[0].length && !(r == row && c == col) && cells[r][c].getStatus() == CellStatus.ALIVE) {
-                    count++;
-                }
-            }
-        }
-        return count;
-    }
+
 
     public void evolve(int liveNeighbors) {
         if(status == CellStatus.ALIVE) {

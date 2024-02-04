@@ -70,9 +70,8 @@ public class BoardTest {
                 {new Cell(CellStatus.ALIVE),new Cell(CellStatus.ALIVE),new Cell(CellStatus.ALIVE)}
         };
         Board board = new Board(testCases);
-        Method countLiveNeighbor = Board.class.getDeclaredMethod("countLiveNeighbor", int.class, int.class);
-        countLiveNeighbor.setAccessible(true);
-        int neighborCount = (int) countLiveNeighbor.invoke(board,0,1);
+        board.nextGeneration();
+
         assertEquals(3,neighborCount);
     }
 
@@ -100,21 +99,7 @@ public class BoardTest {
         };
         assertArrayEquals(expectedResult,actualResult);
     }
-
-    private static Cell[][] getCells() throws NoSuchFieldException, IllegalAccessException {
-        Cell[][] testCases = {
-                {new Cell(CellStatus.ALIVE),new Cell(CellStatus.DEAD),new Cell(CellStatus.ALIVE)},
-                {new Cell(CellStatus.DEAD),new Cell(CellStatus.ALIVE),new Cell(CellStatus.DEAD)},
-                {new Cell(CellStatus.ALIVE),new Cell(CellStatus.ALIVE),new Cell(CellStatus.ALIVE)}
-        };
-        Board board = new Board(testCases);
-        for (int i = 0; i <2; i++) {
-            board.nextGeneration();
-        }
-        Field cells = Board.class.getDeclaredField("cells");
-        cells.setAccessible(true);
-        return (Cell[][]) cells.get(board);
-    }
+    
 
     @Test
     public void testGenerateAllPositions () throws Exception{

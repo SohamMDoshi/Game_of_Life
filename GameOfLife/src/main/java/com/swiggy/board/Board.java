@@ -6,19 +6,10 @@ public class Board {
     private Cell[][] cells;
     private double targetPercentOfLife;
 
-    private int countOfAliveCells;
-
     public Board(int rows, int cols, double targetPercentOfLife) {
         this.targetPercentOfLife = targetPercentOfLife;
         this.cells = new Cell[rows][cols];
     }
-
-    public Board(Cell[][] cells) {
-        this.cells = cells;
-    }
-
-    public Board() {}
-    public int getCountOfAliveCells() {return this.countOfAliveCells;}
 
     public void initializeBoard() {
         int rows = cells.length;
@@ -49,7 +40,7 @@ public class Board {
         }
     }
 
-    private void setAliveCells(int numberOfAliveCells, int[] positions, int rows, int columns) {
+    private void setAliveCells(int numb  erOfAliveCells, int[] positions, int rows, int columns) {
         for (int i = 0; i < numberOfAliveCells; i++) {
             int position = positions[i];
             int row = position / columns;
@@ -94,5 +85,17 @@ public class Board {
         }
         this.countOfAliveCells = count;
         System.out.print("\r");
+    }
+
+    public int getRows() {
+        return cells.length;
+    }
+
+    public int getColumns() {
+        return cells[0].length;
+    }
+
+    public Cell getCell(int i, int j) {
+        return cells[i][j];
     }
 }
