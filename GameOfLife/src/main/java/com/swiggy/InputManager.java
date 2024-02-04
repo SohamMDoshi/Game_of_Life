@@ -1,10 +1,10 @@
-package com.swiggy.board;
+package com.swiggy;
 
 import java.util.Scanner;
 
 public class InputManager {
 
-    private Scanner scanner;
+    private final Scanner scanner;
 
     public InputManager() {
         this.scanner = new Scanner(System.in);
@@ -43,7 +43,7 @@ public class InputManager {
 
     private int getPositiveIntegerInput() {
         while (true) {
-            String input = scanner.next();
+            String input = scanner.nextLine();
             if(input.equalsIgnoreCase("stop")) {
                 System.exit(0);
             }

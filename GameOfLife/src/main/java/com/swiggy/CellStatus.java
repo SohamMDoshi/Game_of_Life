@@ -1,4 +1,4 @@
-package com.swiggy.board;
+package com.swiggy;
 
 public enum CellStatus {
     ALIVE,

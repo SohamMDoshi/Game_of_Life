@@ -1,4 +1,4 @@
-package com.swiggy.board;
+package com.swiggy;
 
 public class LifeSimulation {
     private Board board;
@@ -11,7 +11,6 @@ public class LifeSimulation {
     
     public void nextGeneration() {
         int rows = board.getRows(), columns = board.getColumns();
-        Board nextGen = new Board(rows, columns, 0);
         int newLiveCellCount = 0;
 
         for (int i = 0; i < rows; i++) {
@@ -21,7 +20,6 @@ public class LifeSimulation {
                 if (board.getCell(i,j).getStatus() == CellStatus.ALIVE) newLiveCellCount++;
             }
         }
-        this.board = nextGen;
         this.liveCellCount = newLiveCellCount;
         displayBoard();
     }
@@ -55,7 +53,7 @@ public class LifeSimulation {
         int liveCellsCount = 0;
         for (int i = 0; i < board.getRows(); i++) {
             for (int j = 0; j < board.getColumns(); j++) {
-                if (board .getCell(i,j).getStatus() == CellStatus.ALIVE) liveCellsCount++;
+                if (board.getCell(i,j).getStatus() == CellStatus.ALIVE) liveCellsCount++;
             }
         }
         return liveCellsCount;

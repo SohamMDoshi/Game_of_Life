@@ -1,10 +1,10 @@
-package com.swiggy.board;
+package com.swiggy;
 
 import java.util.Random;
 
 public class Board {
-    private Cell[][] cells;
-    private double targetPercentOfLife;
+    private final Cell[][] cells;
+    private final double targetPercentOfLife;
 
     public Board(int rows, int cols, double targetPercentOfLife) {
         this.targetPercentOfLife = targetPercentOfLife;

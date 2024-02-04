@@ -1,5 +1,5 @@
-import com.swiggy.board.Cell;
-import com.swiggy.board.CellStatus;
+import com.swiggy.Cell;
+import com.swiggy.CellStatus;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
