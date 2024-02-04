@@ -26,14 +26,24 @@ public class LifeSimulation {
         displayBoard();
     }
 
-    private void displayBoard() {
+    public void displayBoard() {
+        int rows = board.getRows(), columns = board.getColumns();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (board.getCell(i,j).getStatus() == CellStatus.DEAD) System.out.print("-");
+                else System.out.print("*");
+            }
+            System.out.println();
+        }
     }
+
 
     private int countLiveNeighbor (int row, int col) {
         int count =0;
         for(int r = row -1; r <= row +1; r++) {
             for(int c = col-1; c <= col +1; c++) {
-                if(r >= 0 && r < board.getRows() && c >= 0 && c < board.getColumns() && !(r == row && c == col) && board.getCell(r,c).getStatus() == CellStatus.ALIVE) {
+                if(r >= 0 && r < board.getRows() && c >= 0 && c < board.getColumns() &&
+                        !(r == row && c == col) && board.getCell(r,c).getStatus() == CellStatus.ALIVE) {
                     count++;
                 }
             }
