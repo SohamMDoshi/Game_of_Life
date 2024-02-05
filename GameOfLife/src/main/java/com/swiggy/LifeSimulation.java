@@ -1,8 +1,10 @@
 package com.swiggy;
 
 public class LifeSimulation {
-    private Board board;
+    private final Board board;
     private int liveCellCount;
+
+    private int gen;
     
     public LifeSimulation(Board board) {
         this.board = board;
@@ -12,7 +14,6 @@ public class LifeSimulation {
     public void nextGeneration() {
         int rows = board.getRows(), columns = board.getColumns();
         int newLiveCellCount = 0;
-
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 int liveNeighbors = countLiveNeighbor(i,j);
@@ -21,6 +22,8 @@ public class LifeSimulation {
             }
         }
         this.liveCellCount = newLiveCellCount;
+        gen++;
+        System.out.println("Generation : " + gen);
         displayBoard();
     }
 
@@ -32,6 +35,11 @@ public class LifeSimulation {
                 else System.out.print("*");
             }
             System.out.println();
+        }
+        try {
+            Thread.sleep(500);
+        }catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
