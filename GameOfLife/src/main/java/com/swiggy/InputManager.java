@@ -43,7 +43,7 @@ public class InputManager {
 
     private int getPositiveIntegerInput() {
         while (true) {
-            String input = scanner.nextLine();
+            String input = scanner.next();
             if(input.equalsIgnoreCase("stop")) {
                 System.exit(0);
             }

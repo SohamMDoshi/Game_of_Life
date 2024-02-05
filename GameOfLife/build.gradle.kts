@@ -4,7 +4,7 @@ plugins {
 }
 
 application {
-    mainClass = "com.swiggy.board.Game"
+    mainClass = "com.swiggy.Game"
 }
 
 group = "org.example"

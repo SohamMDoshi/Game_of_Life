@@ -1,6 +1,6 @@
 package com.swiggy;
 
-public class Main {
+public class Game {
     public static void main(String[] args) {
         InputManager inputManager = new InputManager();
         int rows = inputManager.getRowsInput();
