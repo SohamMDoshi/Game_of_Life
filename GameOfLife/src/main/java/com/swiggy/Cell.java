@@ -1,7 +1,5 @@
 package com.swiggy;
 
-import java.util.Objects;
-
 public class Cell {
     private CellStatus status;
 
@@ -9,8 +7,8 @@ public class Cell {
         this.status = status;
     }
 
-    public CellStatus getStatus() {
-        return this.status;
+    public boolean isAlive() {
+        return this.status == CellStatus.ALIVE;
     }
 
     public void evolve(int liveNeighbors) {

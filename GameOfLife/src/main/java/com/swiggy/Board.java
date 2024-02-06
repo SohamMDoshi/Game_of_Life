@@ -58,15 +58,15 @@ public class Board {
         }
     }
 
-    public int getRows() {
+    public int rows() {
         return cells.length;
     }
 
-    public int getColumns() {
+    public int columns() {
         return cells[0].length;
     }
 
-    public Cell getCell(int i, int j) {
-        return cells[i][j];
+    public boolean isCellAlive(int i, int j) {
+        return cells[i][j].isAlive();
     }
 }

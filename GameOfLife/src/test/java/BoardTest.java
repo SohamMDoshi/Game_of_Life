@@ -14,9 +14,9 @@ public class BoardTest {
         int expectedLiveCellCount = 6;
         int actualLiveCellCount = 0;
 
-        for (int i = 0; i < board.getRows(); i++) {
-            for (int j = 0; j < board.getColumns(); j++) {
-                if (board.getCell(i,j).getStatus() == CellStatus.ALIVE) actualLiveCellCount++;
+        for (int i = 0; i < board.rows(); i++) {
+            for (int j = 0; j < board.columns(); j++) {
+                if (board.isCellAlive(i,j).status() == CellStatus.ALIVE) actualLiveCellCount++;
             }
         }
 

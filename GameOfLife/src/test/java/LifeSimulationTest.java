@@ -1,5 +1,4 @@
 import com.swiggy.Board;
-import com.swiggy.Cell;
 import com.swiggy.CellStatus;
 import com.swiggy.LifeSimulation;
 import org.junit.jupiter.api.Test;
@@ -13,14 +12,14 @@ public class LifeSimulationTest {
         Board board = new Board(3,5,0.4);
         board.initializeBoard();
         int initializedLiveCellCount = 0;
-        for (int i = 0; i < board.getRows(); i++) {
-            for (int j = 0; j < board.getColumns(); j++) {
-                if(board.getCell(i,j).getStatus() == CellStatus.ALIVE) initializedLiveCellCount++;
+        for (int i = 0; i < board.rows(); i++) {
+            for (int j = 0; j < board.columns(); j++) {
+                if(board.isCellAlive(i,j).status() == CellStatus.ALIVE) initializedLiveCellCount++;
             }
         }
         LifeSimulation simulation = new LifeSimulation(board);
         simulation.nextGeneration();
-        int nextGenLiveCellCount = simulation.getLiveCellCount();
+        int nextGenLiveCellCount = simulation.liveCellCount();
         assertNotEquals(initializedLiveCellCount,nextGenLiveCellCount);
     }
 }

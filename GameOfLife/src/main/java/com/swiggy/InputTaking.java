@@ -2,11 +2,11 @@ package com.swiggy;
 
 import java.util.Scanner;
 
-public class InputManager {
+public class InputTaking {
 
     private final Scanner scanner;
 
-    public InputManager() {
+    public InputTaking() {
         this.scanner = new Scanner(System.in);
     }
 
