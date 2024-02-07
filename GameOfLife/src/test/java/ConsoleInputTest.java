@@ -1,4 +1,4 @@
-import com.swiggy.InputTaking;
+import com.swiggy.ConsoleInput;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class InputTakingTest {
+public class ConsoleInputTest {
 
     private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     private final InputStream inputStream = System.in;
@@ -32,8 +32,8 @@ public class InputTakingTest {
         InputStream originalSystemIn = System.in;
         try {
             System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
-            InputTaking inputTaking = new InputTaking();
-            int result = inputTaking.getRowsInput();
+            ConsoleInput consoleInput = new ConsoleInput();
+            int result = consoleInput.getRowsInput();
             assertEquals(33, result);
         } finally {
             System.setIn(originalSystemIn);
@@ -46,9 +46,9 @@ public class InputTakingTest {
         InputStream originalSystemIn = System.in;
         try {
             System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
-            InputTaking inputTaking = new InputTaking();
+            ConsoleInput consoleInput = new ConsoleInput();
             assertThrows(NoSuchElementException.class, () -> {
-               int result = inputTaking.getColumnsInput();
+               int result = consoleInput.getColumnsInput();
             });
         } finally {
             System.setIn(originalSystemIn);

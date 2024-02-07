@@ -1,17 +1,21 @@
 package com.swiggy;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Board {
     private final Cell[][] cells;
     private final double targetPercentOfLife;
 
+    private boolean canEvolve;
+
     public Board(int rows, int cols, double targetPercentOfLife) {
         this.targetPercentOfLife = targetPercentOfLife;
         this.cells = new Cell[rows][cols];
+        initializeBoard();
     }
 
-    public void initializeBoard() {
+    private void initializeBoard() {
         int rows = cells.length;
         int columns = cells[0].length;
         Random random = new Random();
@@ -58,15 +62,32 @@ public class Board {
         }
     }
 
-    public int rows() {
-        return cells.length;
+    public boolean nextGeneration() {
+        canEvolve = false;
+        int rows = cells.length, columns = cells[0].length;
+        Cell[][] prev = new Cell[rows][];
+        for (int i = 0; i < rows; i++) {
+            prev[i] = Arrays.copyOf(cells[i], cells[i].length);
+            for (int j = 0; j < columns; j++) {
+                int liveNeighbors = countLiveNeighbor(i,j);
+                cells[i][j].evolve(liveNeighbors);
+                if (cells[i][j].isAlive()) canEvolve = true;
+            }
+        }
+        if (Arrays.deepEquals(prev,cells)) canEvolve = false;
+        return canEvolve;
     }
 
-    public int columns() {
-        return cells[0].length;
-    }
-
-    public boolean isCellAlive(int i, int j) {
-        return cells[i][j].isAlive();
+    private int countLiveNeighbor (int row, int col) {
+        int count =0;
+        for(int r = row -1; r <= row +1; r++) {
+            for(int c = col-1; c <= col +1; c++) {
+                if(r >= 0 && r < cells.length && c >= 0 && c < cells[0].length &&
+                        !(r == row && c == col) && cells[r][c].isAlive()) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }
