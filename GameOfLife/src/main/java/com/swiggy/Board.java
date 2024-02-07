@@ -22,6 +22,7 @@ public class Board {
 
         int totalCells = rows * columns;
         int countOfAliveCells = (int) (totalCells * targetPercentOfLife);
+        if(countOfAliveCells <= 2) canEvolve = false;
         int[] allPosition = generateAllPositions(totalCells);
         shuffle(random,allPosition);
         setAliveCells(countOfAliveCells,allPosition,rows,columns);
@@ -80,6 +81,7 @@ public class Board {
         canEvolve = isNotEqual(prev,cells);
         if (!canEvolve) {
             System.out.println("Board is now in Stable state.(Game ended!)");
+            return;
         }
     }
 
