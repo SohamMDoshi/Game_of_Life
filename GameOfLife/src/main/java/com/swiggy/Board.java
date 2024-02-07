@@ -1,13 +1,13 @@
 package com.swiggy;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class Board {
     private final Cell[][] cells;
     private final double targetPercentOfLife;
+    private boolean canEvolve = true;
 
-    private boolean canEvolve;
+    private int gen = 0;
 
     public Board(int rows, int cols, double targetPercentOfLife) {
         this.targetPercentOfLife = targetPercentOfLife;
@@ -62,20 +62,30 @@ public class Board {
         }
     }
 
-    public boolean nextGeneration() {
-        canEvolve = false;
+    public void nextGeneration() {
+        gen++;
         int rows = cells.length, columns = cells[0].length;
-        Cell[][] prev = new Cell[rows][];
+        Cell[][] prev = new Cell[rows][columns];
         for (int i = 0; i < rows; i++) {
-            prev[i] = Arrays.copyOf(cells[i], cells[i].length);
             for (int j = 0; j < columns; j++) {
                 int liveNeighbors = countLiveNeighbor(i,j);
+                prev[i][j] = cells[i][j].isAlive() ?  new Cell(CellStatus.ALIVE) : new Cell(CellStatus.DEAD);
                 cells[i][j].evolve(liveNeighbors);
                 if (cells[i][j].isAlive()) canEvolve = true;
             }
         }
-        if (Arrays.deepEquals(prev,cells)) canEvolve = false;
-        return canEvolve;
+        canEvolve = isNotEqual(prev,cells);
+        if (!canEvolve) display();
+    }
+
+    public boolean isNotEqual(Cell[][] prev, Cell[][] cells) {
+        int rows = cells.length, columns = cells[0].length;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (!cells[i][j].equals(prev[i][j])) return true;
+            }
+        }
+        return false;
     }
 
     private int countLiveNeighbor (int row, int col) {
@@ -89,5 +99,20 @@ public class Board {
             }
         }
         return count;
+    }
+
+    public void display() {
+        System.out.println("Generation "+ gen);
+        for (Cell[] cell : cells) {
+            for (int j = 0; j < cells[0].length; j++) {
+                if (cell[j].isAlive()) System.out.print(CellStatus.ALIVE.symbol());
+                else System.out.print(CellStatus.DEAD.symbol());
+            }
+            System.out.println();
+        }
+    }
+
+    public boolean canEvolve () {
+        return canEvolve;
     }
 }

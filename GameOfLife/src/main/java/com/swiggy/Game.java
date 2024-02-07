@@ -9,8 +9,9 @@ public class Game {
 
         Board board = new Board(rows,column,percentage);
 
-        while (board.nextGeneration()) {
-
+        while (board.canEvolve()) {
+            board.display();
+            board.nextGeneration();
         }
     }
 }
