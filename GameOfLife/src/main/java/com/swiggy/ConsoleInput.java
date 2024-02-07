@@ -1,5 +1,6 @@
 package com.swiggy;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ConsoleInput {
@@ -25,11 +26,21 @@ public class ConsoleInput {
         return getPercentage();
     }
 
+    private String getNextInput() {
+        while (true) {
+            try {
+                return scanner.next();
+            }catch (NoSuchElementException e) {
+                System.out.println("Please enter valid input.");
+            }
+        }
+    }
+
     private double getPercentage() {
         while (true) {
             String input = scanner.next();
             if(input.equalsIgnoreCase("stop")) {
-                System.exit(0);
+                System.exit(8);
             }
             try {
                 double value = Double.parseDouble(input);
@@ -45,7 +56,7 @@ public class ConsoleInput {
         while (true) {
             String input = scanner.next();
             if(input.equalsIgnoreCase("stop")) {
-                System.exit(0);
+                System.exit(8);
             }
             try {
                 int value = Integer.parseInt(input);

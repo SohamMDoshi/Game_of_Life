@@ -1,25 +1,20 @@
 import com.swiggy.Board;
-import com.swiggy.CellStatus;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 public class BoardTest {
 
     @Test
-    public void testInitializationOfBoard() {
-        Board board = new Board(4,3,0.5);
-        board.initializeBoard();
-
-        int expectedLiveCellCount = 6;
-        int actualLiveCellCount = 0;
-
-        for (int i = 0; i < board.rows(); i++) {
-            for (int j = 0; j < board.columns(); j++) {
-                if (board.isCellAlive(i,j).status() == CellStatus.ALIVE) actualLiveCellCount++;
-            }
-        }
-
-        assertEquals(expectedLiveCellCount,actualLiveCellCount);
+    public void testInitializationOfBoardWithOneCell_ExpectFalseToSecondGeneration() {
+        Board board = new Board(4,3,0.09);
+        assertTrue(board.canEvolve());
+        board.display();
+        board.nextGeneration();
+        board.display();
+        board.nextGeneration();
+        assertFalse(board.canEvolve());
     }
 }

@@ -5,7 +5,7 @@ import java.util.Random;
 public class Board {
     private final Cell[][] cells;
     private final double targetPercentOfLife;
-    private boolean canEvolve = true;
+    private boolean canEvolve=true;
 
     private int gen = 0;
 
@@ -63,6 +63,10 @@ public class Board {
     }
 
     public void nextGeneration() {
+        if (!canEvolve) {
+            display();
+            System.out.println("Board is now in Stable state.(Game ended!)");
+        }
         gen++;
         int rows = cells.length, columns = cells[0].length;
         Cell[][] prev = new Cell[rows][columns];
@@ -71,14 +75,15 @@ public class Board {
                 int liveNeighbors = countLiveNeighbor(i,j);
                 prev[i][j] = cells[i][j].isAlive() ?  new Cell(CellStatus.ALIVE) : new Cell(CellStatus.DEAD);
                 cells[i][j].evolve(liveNeighbors);
-                if (cells[i][j].isAlive()) canEvolve = true;
             }
         }
         canEvolve = isNotEqual(prev,cells);
-        if (!canEvolve) display();
+        if (!canEvolve) {
+            System.out.println("Board is now in Stable state.(Game ended!)");
+        }
     }
 
-    public boolean isNotEqual(Cell[][] prev, Cell[][] cells) {
+    private boolean isNotEqual(Cell[][] prev, Cell[][] cells) {
         int rows = cells.length, columns = cells[0].length;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -109,6 +114,11 @@ public class Board {
                 else System.out.print(CellStatus.DEAD.symbol());
             }
             System.out.println();
+        }
+        try {
+            Thread.sleep(500);
+        }catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 

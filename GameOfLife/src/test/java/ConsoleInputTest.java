@@ -42,14 +42,12 @@ public class ConsoleInputTest {
 
     @Test
     public void testRowInputWithInvalidIntegerInput() {
-        String simulatedUserInput = "dfhad;\n";
+        String simulatedUserInput = "-33\n";
         InputStream originalSystemIn = System.in;
         try {
             System.setIn(new ByteArrayInputStream(simulatedUserInput.getBytes()));
             ConsoleInput consoleInput = new ConsoleInput();
-            assertThrows(NoSuchElementException.class, () -> {
-               int result = consoleInput.getColumnsInput();
-            });
+            assertThrows(NoSuchElementException.class, consoleInput::getColumnsInput);
         } finally {
             System.setIn(originalSystemIn);
         }
