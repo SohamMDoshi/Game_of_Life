@@ -67,6 +67,7 @@ public class Board {
         if (!canEvolve) {
             display();
             System.out.println("Board is now in Stable state.(Game ended!)");
+            return;
         }
         gen++;
         int rows = cells.length, columns = cells[0].length;
@@ -81,7 +82,6 @@ public class Board {
         canEvolve = isNotEqual(prev,cells);
         if (!canEvolve) {
             System.out.println("Board is now in Stable state.(Game ended!)");
-            return;
         }
     }
 
