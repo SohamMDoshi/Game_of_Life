@@ -9,6 +9,8 @@ public class Game {
 
         Board board = new Board(rows,column,percentage);
 
+        if (!board.canEvolve()) System.out.println("Board is in stable state, Game ended!");
+
         while (board.canEvolve()) {
             board.display();
             board.nextGeneration();
